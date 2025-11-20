@@ -42,7 +42,7 @@ function ExtensionListItem(props: { extension: Extension; reloadExtension: () =>
           <ActionPanel.Section>
             <Action.CopyToClipboard
               content={e.id}
-              title="Copy Extension Id"
+              title="Copy Extension ID"
               shortcut={{ modifiers: ["cmd", "shift"], key: "." }}
             />
             {e.publisherDisplayName && (
@@ -93,10 +93,10 @@ export function useLocalExtensions(): {
   const [isLoading, setIsLoading] = useState(true);
   const [extensions, setExtensions] = useState<Extension[]>();
   const [error, setError] = useState<string>();
-  const [date, setDate] = useState(new Date());
+  const [refreshTrigger, setRefreshTrigger] = useState(0);
 
   const refresh = () => {
-    setDate(new Date());
+    setRefreshTrigger((prev) => prev + 1);
   };
 
   useEffect(() => {
@@ -126,7 +126,7 @@ export function useLocalExtensions(): {
     return () => {
       didUnmount = true;
     };
-  }, []);
+  }, [refreshTrigger]);
 
   return { extensions: extensions, isLoading, error, refresh };
 }

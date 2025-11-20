@@ -1,4 +1,4 @@
-import { ActionPanel, Action, Grid, Icon, showToast, open, Toast, LaunchProps, Color } from "@raycast/api";
+import { ActionPanel, Action, Grid, Icon, showToast, open, Toast, Color } from "@raycast/api";
 import { useEffect, useState } from "react";
 import { basename, dirname } from "path";
 import tildify from "tildify";
@@ -30,7 +30,7 @@ import { usePinnedEntries } from "./pinned";
 import { getGitBranch } from "./utils/git";
 import { runAppleScriptSync } from "run-applescript";
 
-export default function Command(props: LaunchProps) {
+export default function Command() {
   const { data, isLoading, error, ...removeMethods } = useRecentEntries();
   const [type, setType] = useState<EntryType | null>(null);
   const { pinnedEntries, ...pinnedMethods } = usePinnedEntries();
@@ -157,7 +157,7 @@ function LocalItem(props: { entry: EntryLike; uri: string; pinned?: boolean } & 
         if (mounted) {
           setGitBranch(branch);
         }
-      } catch (error) {
+      } catch {
         // Silently handle errors - they're already handled in getGitBranch
       }
     }
